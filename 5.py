@@ -4,8 +4,6 @@ connection = sqlite3.connect('my_database.db')
 
 cursor = connection.cursor()
 
-cursor.execute('SELECT COUNT(*) FROM Users')
-
 cursor.execute('SELECT * FROM Users')
 
 users = cursor.fetchall()

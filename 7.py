@@ -34,8 +34,6 @@ BEGIN
 END;
 ''')
 
-
-
 query = 'SELECT * FROM Users WHERE age > ?'
 cursor.execute(query, (25,))
 users = cursor.fetchall()

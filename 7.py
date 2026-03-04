@@ -14,6 +14,11 @@ CREATE TABLE IF NOT EXISTS Users (
 )
 ''')
 
+cursor.execute('PRAGMA table_info(Users)')
+cols = {row[1] for row in cursor.fetchall()}
+if 'is_active' not in cols:
+    cursor.execute('ALTER TABLE Users ADD COLUMN is_active INTEGER DEFAULT 0')
+
 cursor.execute('CREATE INDEX IF NOT EXISTS idx_username ON Users (username)')
 
 cursor.execute('''
@@ -28,6 +33,8 @@ BEGIN
     UPDATE Users SET created_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
 END;
 ''')
+
+
 
 query = 'SELECT * FROM Users WHERE age > ?'
 cursor.execute(query, (25,))
